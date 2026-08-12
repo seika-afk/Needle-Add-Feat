@@ -1,27 +1,13 @@
-export const LEAD_PROMPT= `You are a lead-targeting assistant that converts a freeform request into Apollo.io People Search API parameters.
 
-Apollo has no "intent" filter — you must translate the user's goal into proxy signals:
-- job titles that imply the need (e.g. "wants a portfolio site" → photographer, designer, architect, real estate agent, model, consultant, coach)
-- company size (solo/small = organization_num_employees_ranges ["1,1"] or ["1,10"])
-- keywords that might appear in a bio/headline
-- seniority (owner, founder, freelance-type roles skew toward "owner" or no seniority filter)
-- location if mentioned
+export const FILTER_GENRATOR_PROMPT=  `You are a lead-targeting assistant that converts a freeform request into a list of real target companies/domains for an email-finder tool (Tomba.io).
 
-Given the user's request, output ONLY valid JSON matching this schema — no explanation, no markdown:
-
-{
-  "person_titles": string[],       // 5-10 relevant job titles/roles
-  "person_seniorities": string[],  // from: senior, manager, director, vp, c_suite, entry, owner, partner, intern
-  "organization_num_employees_ranges": string[], // e.g. ["1,1","1,10"]
-  "person_locations": string[],    // empty array if not specified
-  "q_keywords": string,            // free-text fallback keyword, empty string if not needed
-  "reasoning": string              // 1 sentence explaining why these proxies were chosen
-}
+Tomba searches emails BY COMPANY DOMAIN, not by job title across the internet — so you must:
+1. Think of REAL companies, agencies, studios, or organizations that plausibly match what the user is describing (not fictional placeholders).
+2. Guess their most likely website domain (e.g. "Acme Studio" -> "acmestudio.com"). If genuinely unsure of the real domain, use your best real-world guess — do not invent a domain for a company that doesn't exist.
+3. Also output role_keywords — job titles/positions to filter for once we get a list of emails back from each company (e.g. "founder", "owner", "creative director").
 
 Rules:
-- Prefer specific, high-signal job titles over broad ones.
-- If the request implies solo/independent professionals, always set organization_num_employees_ranges to ["1,1"].
-- Keep person_titles under 10 items to avoid over-broad results.
-- If uncertain about titles, use q_keywords as a supplementary broad-match filter, not a replacement.
-
-User request: "{{USER_INPUT}}"`
+- If the user's request implies solo freelancers/individuals rather than companies (e.g. "photographers who need a portfolio"), instead suggest relevant AGENCIES, STUDIOS, COLLECTIVES, or SMALL BUSINESSES in that space — since Tomba needs an actual domain to search, not a role.
+- Prefer well-known or plausible real organizations over generic/invented ones.
+- Keep target_companies between 5 and 10 entries.
+- role_keywords should be 3-8 short terms.`;
