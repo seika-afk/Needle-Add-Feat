@@ -35,31 +35,3 @@ export async function research(query: string): Promise<TargetResult> {
 
   return response;
 }
-
-const q = `
-  email: 'meenakshi.taheem@fabhotels.com',
-  first_name: 'Meenakshi',
-  last_name: 'Taheem',
-  full_name: 'Meenakshi Taheem',
-  gender: 'female',
-  phone_number: true,
-  type: 'personal',
-  country: null,
-  position: 'assistant manager - content',
-  department: 'marketing',
-  seniority: null,
-  twitter: null,
-  linkedin: 'https://www.linkedin.com/in/meenakshi-taheem-110b9136',
-  score: 51,
-  verification: { date: null, status: null },
-  phone_data: [],
-  sources: [ [Object] ],
-  companyDomain: 'flipkart.com'
-`;
-
-async function main() {
-  const resp = await research(q);
-  console.log(resp);
-}
-
-main();
