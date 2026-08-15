@@ -11,3 +11,8 @@ This Repo consists Base for Needle app's features and 1 particular feature to en
   - Here i want to point out , that the output of the explaining can be improved by providing better context and Storying [both user and llm's reasoned output]
 
 This Feature was found on Product Hunt page of Needle.app.
+
+
+Few key notes :
+- for the repo itself aside from `Bot/`, i have tried to use as less ai as possible, to show the skill itself rather than just the result
+- Since i was very unfamiliar with slack api , orchestrated the llms to simulate the kind of behavior that i had planned out for it.
